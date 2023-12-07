@@ -1,21 +1,20 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\input.example");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\input.txt");
 
 var answer = 0;
 var hands = new List<Hand>();
 
 foreach (var line in lines)
-{
     hands.Add(new Hand(line.Split(' ')[0], line.Split(' ')[1]));
-}
 
 hands.Sort();
+
+for (var i = 0; i < hands.Count; i++)
+    answer += hands[i].Bid * (i + 1);
 
 Console.WriteLine(answer);
 
 class Hand : IComparable
 {
-    public static readonly string CARDS = "23456789TJQKA";
-
     public string Cards;
     public int Bid;
     public HandType Type;
@@ -34,23 +33,21 @@ class Hand : IComparable
 
         if (this.Type == otherHand.Type)
         {
-            for (var i = 0; i < this.Cards.Length; i++)
-            {
-                Console.WriteLine(this.Cards[i] + " to compare with " + otherHand.Cards[i]);
-            }
-            return 0;
+            var thisSortValue = GetSortValue(this.Cards);
+            var otherHandSortValue = GetSortValue(otherHand.Cards);            
+            return string.Compare(otherHandSortValue, thisSortValue);
         }
-        else if (this.Type < otherHand.Type)
-            return 1;
-        else
+        else if (otherHand.Type > this.Type)
             return -1;
+        else
+            return 1;
     }
 
     private void DiscoverType()
     {
         var occurenceMap = string.Empty;
-        for (var i = 0; i < CARDS.Length; i++)
-            occurenceMap += CountOccurences(Cards, CARDS[i]).ToString();
+        for (var i = 0; i < Card.VALUES.Length; i++)
+            occurenceMap += CountOccurences(Cards, Card.VALUES[i]).ToString();
 
         if (occurenceMap.Contains('5'))
             Type = HandType.FiveOfAKind;
@@ -76,6 +73,20 @@ class Hand : IComparable
                 count++;
         return count;
     }
+
+    private static string GetSortValue(string cards)
+    {
+        var sortValue = string.Empty;
+        for (var i = 0; i < cards.Length; i++)
+            sortValue += Card.SORT_VALUES[Card.VALUES.IndexOf(cards[i])];
+        return sortValue;
+    }
+}
+
+class Card
+{
+    public static readonly string VALUES = "23456789TJQKA";
+    public static readonly string SORT_VALUES = "MLKJIHGFEDCBA";
 }
 
 enum HandType
