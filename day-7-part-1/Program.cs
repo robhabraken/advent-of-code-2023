@@ -45,27 +45,27 @@ class Hand : IComparable
 
     private void DiscoverType()
     {
-        var occurenceMap = string.Empty;
+        var occurrenceMap = string.Empty;
         for (var i = 0; i < Card.VALUES.Length; i++)
-            occurenceMap += CountOccurences(Cards, Card.VALUES[i]).ToString();
+            occurrenceMap += CountOccurrences(Cards, Card.VALUES[i]).ToString();
 
-        if (occurenceMap.Contains('5'))
+        if (occurrenceMap.Contains('5'))
             Type = HandType.FiveOfAKind;
-        else if (occurenceMap.Contains('4'))
+        else if (occurrenceMap.Contains('4'))
             Type = HandType.FourOfAKind;
-        else if (occurenceMap.Contains('3') && occurenceMap.Contains('2'))
+        else if (occurrenceMap.Contains('3') && occurrenceMap.Contains('2'))
             Type = HandType.FullHouse;
-        else if (occurenceMap.Contains('3'))
+        else if (occurrenceMap.Contains('3'))
             Type = HandType.ThreeOfAKind;
-        else if (CountOccurences(occurenceMap, '2') == 2)
+        else if (CountOccurrences(occurrenceMap, '2') == 2)
             Type = HandType.TwoPair;
-        else if (occurenceMap.Contains('2'))
+        else if (occurrenceMap.Contains('2'))
             Type = HandType.OnePair;
         else
             Type = HandType.HighCard;
     }
 
-    private static int CountOccurences(string haystack, char needle)
+    private static int CountOccurrences(string haystack, char needle)
     {
         var count = 0;
         foreach (char c in haystack)
