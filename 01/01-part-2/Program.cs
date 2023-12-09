@@ -1,4 +1,4 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\input.txt");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
 
 string[] spelledDigits = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
