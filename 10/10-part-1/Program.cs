@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel;
 
-string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.example4");
+string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
 
-var answer = 0;
+var answer = 1;
 var sketch = new Pipe[lines[0].Length, lines.Length];
-Pipe startingPoint;
+Pipe? startingPoint = null;
 for (var y = 0; y < lines.Length; y++)
 {
     for (var x = 0; x < lines[0].Length; x++)
@@ -15,6 +15,9 @@ for (var y = 0; y < lines.Length; y++)
             startingPoint = pipe;
     }
 }
+
+if (startingPoint == null)
+    throw new Exception("No starting point found");
 
 // iteratively remove incorrectly connected pipes until we end up with the main loop only
 var incorrectPipesFound = false;
@@ -54,17 +57,88 @@ do
 
 } while (incorrectPipesFound);
 
-// print result
-for (var y = 0; y < sketch.GetLength(1); y++)
+// now we can start following the paths
+var paths = new Position[] {
+    new Position(startingPoint.x, startingPoint.y),
+    new Position(startingPoint.x, startingPoint.y)
+};
+
+// start paths in a different direction each
+var firstPathFound = false;
+if (startingPoint.y > 0 && sketch[startingPoint.x, startingPoint.y - 1].south)
 {
-    for (var x = 0; x < sketch.GetLength(0); x++)
+    paths[0].y--;
+    firstPathFound = true;
+}
+if (startingPoint.x < sketch.GetLength(0) - 1 && sketch[startingPoint.x + 1, startingPoint.y].west)
+{
+    var index = 0;
+    if (firstPathFound)
+        index++;
+    else
+        firstPathFound = true;
+    paths[index].x++;
+}
+if (startingPoint.y < sketch.GetLength(1) - 1 && sketch[startingPoint.x, startingPoint.y + 1].north)
+{
+    var index = 0;
+    if (firstPathFound)
+        index++;
+    paths[index].y++;
+}
+if (startingPoint.x > 0 && sketch[startingPoint.x - 1, startingPoint.y].east)
+{
+    paths[1].x--;
+}
+
+// follow each path until we're on the same position
+// this loop steps in an 'open' direction and closes it right away so it can't walk back in the wrong direction
+// also we should check if we don't walk towards the starting point again, as both paths should move away from that
+while (true)
+{
+    for (var i = 0; i < paths.Length; i++)
     {
-        Console.Write(sketch[x, y].symbol);
+        if (sketch[paths[i].x, paths[i].y].north && !sketch[paths[i].x, paths[i].y - 1].symbol.Equals('S'))
+        {
+            paths[i].y--;
+            sketch[paths[i].x, paths[i].y].south = false;
+        }
+        else if (sketch[paths[i].x, paths[i].y].east && !sketch[paths[i].x + 1, paths[i].y].symbol.Equals('S'))
+        {
+            paths[i].x++;
+            sketch[paths[i].x, paths[i].y].west = false;
+        }
+        else if (sketch[paths[i].x, paths[i].y].south && !sketch[paths[i].x, paths[i].y + 1].symbol.Equals('S'))
+        {
+            paths[i].y++;
+            sketch[paths[i].x, paths[i].y].north = false;
+        }
+        else if (sketch[paths[i].x, paths[i].y].west && !sketch[paths[i].x - 1, paths[i].y].symbol.Equals('S'))
+        {
+            paths[i].x--;
+            sketch[paths[i].x, paths[i].y].east = false;
+        }
     }
-    Console.WriteLine();
+
+    answer++;
+
+    if (paths[0].x == paths[1].x && paths[0].y == paths[1].y)
+        break;
 }
 
 Console.WriteLine(answer);
+
+class Position
+{
+    public int x;
+    public int y;
+
+    public Position(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+}
 
 class Pipe
 {
