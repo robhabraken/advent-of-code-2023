@@ -14,7 +14,7 @@ Lastly, I simply add the last value of the first List in the collection to my `a
 
 I kind of expected the second puzzle to have an irregular pattern or a major increase in input size, so I was surprised to learn it only swapped sides, not adding a new item to the end of the list, but to the front. Though the algorithm is actually exactly the same. The only thing you need to change is subtract the values instead of adding them.
 
-Programmatically, it would be way more work to add an item to the beginning of a list while maintaining the order - you would need to copy it over to a new object list after adding a new first value as you cannot add objects to a collection before the first index and also the index count would change making it more complex. But I actually didn't bother with that, it doesn't have to be 'visually' correct. So I kept all of my code: although I now calculated the new value using the first two values, and put the new value to the end of the next list nonetheless. This was way easier to achieve and didn't require me to change anything to my code of part 1.
+Programmatically, it would be way more work to add an item to the beginning of a list while maintaining the order - you would need to copy it over to a new object list after adding a new first value as you cannot add objects to a collection before the first index and also the index count would change making it more complex. But I actually didn't bother with that, it doesn't have to be 'visually' correct. So I kept all of my code: although I now calculated the new value using the first two values, I put the new value to the end of the next list nonetheless. This was way easier to achieve and didn't require me to change anything to my code of part 1.
 
 So:
 ```
