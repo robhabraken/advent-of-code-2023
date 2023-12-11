@@ -56,7 +56,6 @@ class Galaxy
         this.x = x;
         this.y = y;
     }
-
     public int DistanceTo(Galaxy other)
     {
         return Math.Abs(this.x - other.x) + Math.Abs(this.y - other.y);
