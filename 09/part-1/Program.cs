@@ -9,7 +9,7 @@ foreach (var line in lines)
         sequences[0].Add(int.Parse(value));
 
     var sequenceCount = 0;
-    while(true)
+    while (true)
     {
         var differences = new List<int>();
         for (int i = 0; i < sequences[sequenceCount].Count - 1; i++)
