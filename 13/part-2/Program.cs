@@ -79,9 +79,7 @@ bool validateAnchor(int index)
     for (var delta = 1; delta <= distanceFromEdge; delta++)
         if (index - delta >= 0 && index + delta + 1 < pattern.Count &&
             !pattern[index - delta].Equals(pattern[index + delta + 1]))
-        {
             return false;
-        }
 
     return true;
 }
