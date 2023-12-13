@@ -28,24 +28,17 @@ void processPattern()
 
 int analyzePattern()
 {
-    var findAnchors = new List<int>();
-    for (var i = 0; i < pattern.Count; i++)
-        if (i < pattern.Count - 1)
-            if (pattern[i].Equals(pattern[i + 1]))
-                findAnchors.Add(i);
-
-    if (findAnchors.Count > 0)
-        foreach (var anchor in findAnchors)
-            if (validateAnchor(anchor))
-                return anchor + 1;
+    for (var reflectionLine = 0; reflectionLine < pattern.Count - 1; reflectionLine++)
+        if (validate(reflectionLine))
+            return reflectionLine + 1;
 
     return -1;
 }
 
-bool validateAnchor(int index)
+bool validate(int index)
 {
     var distanceFromEdge = Math.Max(pattern.Count - index - 2, index);
-    for (var delta = 1; delta <= distanceFromEdge; delta++)
+    for (var delta = 0; delta <= distanceFromEdge; delta++)
         if (index - delta >= 0 && index + delta + 1 < pattern.Count &&
             !pattern[index - delta].Equals(pattern[index + delta + 1]))
             return false;

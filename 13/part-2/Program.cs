@@ -15,71 +15,42 @@ Console.WriteLine(answer);
 
 void processPattern()
 {
-    var oldPatternNote = analyzePattern();
-    var patternNote = findSmudge(oldPatternNote) * 100;
+    var oldPatternNote = analyzePattern(0);
+    var patternNote = analyzePattern(1, oldPatternNote) * 100;
 
     if (patternNote < 0)
     {
         rotate();
         if (oldPatternNote < 0)
-            oldPatternNote = analyzePattern();
+            oldPatternNote = analyzePattern(0);
         else
             oldPatternNote = -1;
-        patternNote = findSmudge(oldPatternNote);
+        patternNote = analyzePattern(1, oldPatternNote);
     }
     answer += patternNote;
 
     pattern = new List<string>();
 }
 
-int findSmudge(int oldPatternNote)
+int analyzePattern(int allowedDifferences, int skipReflectionLine = -1)
 {
-    for (var y = 0; y < pattern.Count; y++)
-    {
-        for (var x = 0; x < pattern[y].Length; x++)
-        {
-            var newValue = '.';
-            var originalPattern = pattern[y];
-            if (pattern[y][x].Equals('.'))
-                newValue = '#';
-
-            var chars = pattern[y].ToCharArray();
-            chars[x] = newValue;
-            pattern[y] = new string(chars);
-
-            var result = analyzePattern(oldPatternNote);
-            if (result >= 0)
-                return result;
-
-            pattern[y] = originalPattern;
-        }
-    }
-    return -1;
-}
-
-int analyzePattern(int oldPatternNote = -1)
-{
-    var findAnchors = new List<int>();
-    for (var i = 0; i < pattern.Count; i++)
-        if (i < pattern.Count - 1)
-            if (pattern[i].Equals(pattern[i + 1]))
-                findAnchors.Add(i);
-
-    if (findAnchors.Count > 0)
-        foreach (var anchor in findAnchors)
-            if (anchor != oldPatternNote - 1 && validateAnchor(anchor))
-                return anchor + 1;
+    for (var reflectionLine = 0; reflectionLine < pattern.Count - 1; reflectionLine++)
+        if (reflectionLine != skipReflectionLine - 1 && validate(reflectionLine, allowedDifferences))
+            return reflectionLine + 1;
 
     return -1;
 }
 
-bool validateAnchor(int index)
+bool validate(int index, int allowedDifferences)
 {
+    var differences = 0;
     var distanceFromEdge = Math.Max(pattern.Count - index - 2, index);
-    for (var delta = 1; delta <= distanceFromEdge; delta++)
-        if (index - delta >= 0 && index + delta + 1 < pattern.Count &&
-            !pattern[index - delta].Equals(pattern[index + delta + 1]))
-            return false;
+    for (var delta = 0; delta <= distanceFromEdge; delta++)
+        if (index - delta >= 0 && index + delta + 1 < pattern.Count)
+            for (var i = 0; i < pattern[index - delta].Length; i++)
+                if (!pattern[index - delta][i].Equals(pattern[index + delta + 1][i]))
+                    if (++differences > allowedDifferences)
+                        return false;
 
     return true;
 }
