@@ -12,3 +12,5 @@ My solutions to the Advent of Code puzzles for the 2023 edition, written in C#.
 - [Day 9: Mirage Maintenance](https://github.com/robhabraken/advent-of-code-2023/tree/main/09)
 - [Day 10: Pipe Maze](https://github.com/robhabraken/advent-of-code-2023/tree/main/10)
 - [Day 11: Cosmic Expansion](https://github.com/robhabraken/advent-of-code-2023/tree/main/11)
+- _Day 12 in progress..._
+- [Day 13: Point of Incidence](https://github.com/robhabraken/advent-of-code-2023/tree/main/13)
