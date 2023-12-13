@@ -1,6 +1,4 @@
-﻿using System;
-
-string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
 
 long answer = 0;
 var pattern = new List<string>();
