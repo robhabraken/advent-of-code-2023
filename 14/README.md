@@ -1,3 +1,6 @@
+*This is a copy of the original puzzle description. Also, the example input and my personal puzzle input are included in this folder as well as my answers to both parts of today's puzzle. If you want to learn more about my approach to solving these puzzles see [my solutions](https://github.com/robhabraken/advent-of-code-2023/blob/main/14/solutions.md).*
+
+---
 # Day 14: Parabolic Reflector Dish
 You reach the place where all of the mirrors were pointing: a massive parabolic reflector dish attached to the side of another large mountain.
 
