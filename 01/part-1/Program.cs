@@ -6,14 +6,14 @@ foreach (var line in lines)
     char? firstDigit = null, lastDigit = null;
     foreach (var character in line)
     {
-        if (Char.IsDigit(character))
+        if (char.IsDigit(character))
         {
             if (!firstDigit.HasValue)
                 firstDigit = character;
             lastDigit = character;
         }
     }
-    var calibrationValue = Int32.Parse($"{firstDigit}{lastDigit}");
+    var calibrationValue = int.Parse($"{firstDigit}{lastDigit}");
     answer += calibrationValue;
 }
 

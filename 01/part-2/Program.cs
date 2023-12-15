@@ -11,7 +11,7 @@ foreach (var line in lines)
     char? firstDigit = null, lastDigit = null;
     for (var i = 0; i < line.Length; i++)
     {
-        if (Char.IsDigit(line, i))
+        if (char.IsDigit(line, i))
         {
             if (!firstDigit.HasValue)
             {
@@ -41,7 +41,7 @@ foreach (var line in lines)
         }
     }
     
-    var calibrationValue = Int32.Parse($"{firstDigit}{lastDigit}");
+    var calibrationValue = int.Parse($"{firstDigit}{lastDigit}");
     answer += calibrationValue;
 }
 
