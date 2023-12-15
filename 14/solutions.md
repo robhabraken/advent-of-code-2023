@@ -4,7 +4,7 @@ Here are my solutions to the puzzles of today. Written chronologically so you ca
 
 ## Part 1
 
-This was surprisingly straight forward! I read the input and stored it in a two-dimensional `char` array. Then I started looping over the rows. And for each column, if I wasn't already on a rock, I started looking down until I hit a rock. If that was a rolling rock, I replaced my current symbol with it, and if it was a steady rock I stopped. The third piece of code is another nested loop across the platform, where I go over all positions and if I find a rolling rock, I subtract the current y-coordinate from the vertical array length and added that to my answer.
+This was surprisingly straight forward! I read the input and stored it in a two-dimensional `char` array. Then I started looping over the rows. And for each column, if I wasn't already on a rock, I started looking down until I hit a rock. If that was a rolling rock, I swapped my current symbol with it, and if it was a steady rock I stopped. The third piece of code is another nested loop across the platform, where I go over all positions and if I find a rolling rock, I subtract the current y-coordinate from the vertical array length and add that to my answer.
 
 ## Part 2
 
