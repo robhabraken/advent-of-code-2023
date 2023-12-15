@@ -9,18 +9,13 @@ foreach (var line in lines)
 
     var score = 0;
     foreach (var number in numbersYouHave)
-    {
         if (!string.IsNullOrEmpty(number.Trim()))
-        {
             if (winningNumbers.Contains(number.Trim()))
-            {
                 if (score == 0)
                     score++;
                 else
                     score *= 2;
-            }
-        }
-    }
+
     answer += score;
 }
 
