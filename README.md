@@ -14,3 +14,5 @@ My solutions to the Advent of Code puzzles for the 2023 edition, written in C#.
 - [Day 11: Cosmic Expansion](https://github.com/robhabraken/advent-of-code-2023/tree/main/11)
 - _Day 12 in progress..._
 - [Day 13: Point of Incidence](https://github.com/robhabraken/advent-of-code-2023/tree/main/13)
+- [Day 14: Parabolic Reflector Dish](https://github.com/robhabraken/advent-of-code-2023/tree/main/14)
+- [Day 15: Lens Library](https://github.com/robhabraken/advent-of-code-2023/tree/main/15)
