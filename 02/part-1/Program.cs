@@ -5,7 +5,7 @@ foreach (var line in lines)
 {
     var game = line.Replace("Game ", "", StringComparison.InvariantCultureIgnoreCase);
     var colonIndex = game.IndexOf(':');
-    var gameNumber = Int32.Parse(game[..colonIndex]);
+    var gameNumber = int.Parse(game[..colonIndex]);
     var gameInfo = game[(colonIndex + 1)..].Trim();
 
     var impossible = false;
@@ -13,7 +13,7 @@ foreach (var line in lines)
     {
         foreach (var colors in set.Split(","))
         {
-            var cubeCount = Int32.Parse(colors.Replace("red", "", StringComparison.InvariantCultureIgnoreCase)
+            var cubeCount = int.Parse(colors.Replace("red", "", StringComparison.InvariantCultureIgnoreCase)
                                               .Replace("green", "", StringComparison.InvariantCultureIgnoreCase)
                                               .Replace("blue", "", StringComparison.InvariantCultureIgnoreCase)
                                               .Trim());
