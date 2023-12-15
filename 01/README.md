@@ -1,3 +1,6 @@
+*This is a copy of the original puzzle description. Also, the example input and my personal puzzle input are included in this folder as well as my answers to both parts of today's puzzle. If you want to learn more about my approach to solving these puzzles see [my solutions](https://github.com/robhabraken/advent-of-code-2023/blob/main/01/solutions.md).*
+
+---
 # Day 1: Trebuchet?!
 Something is wrong with global snow production, and you've been selected to take a look. The Elves have even given you a map; on it, they've used stars to mark the top fifty locations that are likely to be having problems.
 
