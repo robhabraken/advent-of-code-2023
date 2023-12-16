@@ -75,7 +75,7 @@ foreach (var startingPoint in  startingPoints)
         answer = startingPoint.energizedTiles;
 }
 
-Console.Write(answer);
+Console.WriteLine(answer);
 
 Beam FollowBeam(Beam beam)
 {

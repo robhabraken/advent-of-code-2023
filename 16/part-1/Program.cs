@@ -52,7 +52,7 @@ while (true)
         break;
 }
 
-Console.Write(answer);
+Console.WriteLine(answer);
 
 Beam FollowBeam(Beam beam)
 {
