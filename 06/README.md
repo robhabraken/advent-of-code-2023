@@ -1,3 +1,6 @@
+*This is a copy of the original puzzle description. Also, the example input and my personal puzzle input are included in this folder as well as my answers to both parts of today's puzzle. If you want to learn more about my approach to solving these puzzles see [my solutions](https://github.com/robhabraken/advent-of-code-2023/blob/main/06/solutions.md).*
+
+---
 # Day 6: Wait For It
 The ferry quickly brings you across Island Island. After asking around, you discover that there is indeed normally a large pile of sand somewhere near here, but you don't see anything besides lots of water and the small island where the ferry has docked.
 
