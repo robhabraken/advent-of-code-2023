@@ -48,7 +48,7 @@ while (true)
     else
         answer = newAnswer;
 
-    if (stable >= 10)
+    if (stable > 2)
         break;
 }
 

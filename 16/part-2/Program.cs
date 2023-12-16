@@ -64,7 +64,7 @@ foreach (var startingPoint in startingPoints)
         else
             startingPoint.energizedTiles = newAnswer;
 
-        if (stable >= 10)
+        if (stable > 2)
             break;
     }
 }
