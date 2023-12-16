@@ -16,3 +16,4 @@ My solutions to the Advent of Code puzzles for the 2023 edition, written in C#.
 - [Day 13: Point of Incidence](https://github.com/robhabraken/advent-of-code-2023/tree/main/13)
 - [Day 14: Parabolic Reflector Dish](https://github.com/robhabraken/advent-of-code-2023/tree/main/14)
 - [Day 15: Lens Library](https://github.com/robhabraken/advent-of-code-2023/tree/main/15)
+- [Day 16: The Floor Will Be Lava](https://github.com/robhabraken/advent-of-code-2023/tree/main/16)
