@@ -1,8 +1,4 @@
-﻿using System.Reflection.Metadata;
-
-string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
-
-long answer = 0;
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
 
 // read input
 var digplan = new List<Input>();
@@ -38,16 +34,12 @@ foreach (var input in digplan)
 }
 
 // calculate area of polygon
-long area = 0;
+double area = 0;
 for (var i = 0; i < points.Count - 1; i++)
-{
-    area += ((points[i].x * points[i + 1].y) - (points[i + 1].x * points[i].y)) / 2;
-}
+    area += ((points[i].x * points[i + 1].y) - (points[i + 1].x * points[i].y)) / 2d;
 
 // add area of perimeter to answer
-answer = area + (perimeter / 2L) + 1;
-
-Console.WriteLine(answer);
+Console.WriteLine((long)area + (perimeter / 2) + 1);
 
 struct Input
 {
