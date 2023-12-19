@@ -19,3 +19,4 @@ My solutions to the Advent of Code puzzles for the 2023 edition, written in C#.
 - [Day 16: The Floor Will Be Lava](https://github.com/robhabraken/advent-of-code-2023/tree/main/16)
 - _Day 17 not started..._
 - [Day 18: Lavaduct Lagoon](https://github.com/robhabraken/advent-of-code-2023/tree/main/18)
+- [Day 19: Aplenty](https://github.com/robhabraken/advent-of-code-2023/tree/main/19)
