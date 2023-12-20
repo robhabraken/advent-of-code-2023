@@ -1,15 +1,19 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.example2");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
 
 var pulseQueue = new Queue<Pulse>();
 var modules = new Dictionary<string, Module>();
 
 var answer = 0;
+var pulseCount = new int[2];
+
+// read input
 foreach (var line in lines)
 {
     var module = new Module(line);
     modules.Add(module.name, module);
 }
 
+// register inputs for all conjuction modules
 foreach (var module in modules.Values)
     if (module.type == ModuleType.Conjuction)
         foreach (var otherModule in modules.Values)
@@ -17,19 +21,33 @@ foreach (var module in modules.Values)
                 if (dest.Equals(module.name))
                     module.RegisterInput(otherModule);
 
-
+// create memory store to keep track of the last pulse for each input
 foreach (var module in modules.Values)
     if (module.type == ModuleType.Conjuction)
         module.CreateMemoryStore();
 
-modules["broadcaster"].ProcessPulse(pulseQueue, modules, new Pulse("button", "broadcaster", 0));
-
-while (pulseQueue.Any())
+// for part 1 I guess I can just press the button a 1000 times
+for (var i = 0; i < 1000; i++)
 {
-    var pulse = pulseQueue.Dequeue();
-    if (modules.ContainsKey(pulse.to))
-        modules[pulse.to].ProcessPulse(pulseQueue, modules, pulse);
+    // press the button
+    modules["broadcaster"].ProcessPulse(pulseQueue, modules, new Pulse("button", "broadcaster", 0));
+    pulseCount[0]++;
+
+    // handle all of the pulse in sequence using a queue
+    while (pulseQueue.Any())
+    {
+        var pulse = pulseQueue.Dequeue();
+        if (modules.ContainsKey(pulse.to))
+            modules[pulse.to].ProcessPulse(pulseQueue, modules, pulse);
+    }
 }
+
+// count the number of low and high pulses
+foreach (var module in modules.Values)
+    for (var i = 0; i < 2; i++)
+        pulseCount[i] += module.pulseCount[i];
+
+answer = pulseCount[0] * pulseCount[1];
 
 Console.WriteLine(answer);
 
@@ -43,6 +61,8 @@ class Module
 
     public bool onOff;
     public Dictionary<string, int> memory;
+
+    public int[] pulseCount;
 
     public Module(string input)
     {
@@ -63,6 +83,7 @@ class Module
             destinations.Add(x.Trim());
 
         inputs = new List<string>();
+        pulseCount = new int[2];
     }
 
     public void RegisterInput(Module module)
@@ -117,10 +138,12 @@ class Module
     {
         foreach (var dest in destinations)
         {
-            var pulseName = "-low";
-            if (pulse == 1)
-                pulseName = "-high";
-            Console.WriteLine(name + " " + pulseName + "-> " + dest);
+            //var pulseName = "-low";
+            //if (pulse == 1)
+            //    pulseName = "-high";
+            //Console.WriteLine(name + " " + pulseName + "-> " + dest);
+
+            pulseCount[pulse]++;
 
             queue.Enqueue(new Pulse(this.name, dest, pulse));
         }
