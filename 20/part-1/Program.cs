@@ -32,7 +32,7 @@ for (var i = 0; i < 1000; i++)
     modules["broadcaster"].ProcessPulse(pulseQueue, modules, new Pulse("button", "broadcaster", 0));
     pulseCount[0]++;
 
-    // handle all of the pulse in sequence using a queue
+    // handle all of the pulses in sequence using a queue
     while (pulseQueue.Any())
     {
         var pulse = pulseQueue.Dequeue();
