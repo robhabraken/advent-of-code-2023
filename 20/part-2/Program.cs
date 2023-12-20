@@ -4,7 +4,6 @@ var pulseQueue = new Queue<Pulse>();
 var modules = new Dictionary<string, Module>();
 
 var answer = 0;
-var pulseCount = new int[2];
 
 // read input
 foreach (var line in lines)
@@ -26,12 +25,15 @@ foreach (var module in modules.Values)
     if (module.type == ModuleType.Conjuction)
         module.CreateMemoryStore();
 
-// for part 1 I guess I can just press the button a 1000 times
-for (var i = 0; i < 1000; i++)
+while(true)
 {
+    answer++;
+
+    var rxPulseCount = 0;
+    var lastRxPulse = -1;
+
     // press the button
     modules["broadcaster"].ProcessPulse(pulseQueue, modules, new Pulse("button", "broadcaster", 0));
-    pulseCount[0]++;
 
     // handle all of the pulse in sequence using a queue
     while (pulseQueue.Any())
@@ -39,15 +41,17 @@ for (var i = 0; i < 1000; i++)
         var pulse = pulseQueue.Dequeue();
         if (modules.ContainsKey(pulse.to))
             modules[pulse.to].ProcessPulse(pulseQueue, modules, pulse);
+
+        if (pulse.to.Equals("rx"))
+        {
+            rxPulseCount++;
+            lastRxPulse = pulse.value;
+        }
     }
+
+    if (rxPulseCount == 1 && lastRxPulse == 0)
+        break;
 }
-
-// count the number of low and high pulses
-foreach (var module in modules.Values)
-    for (var i = 0; i < 2; i++)
-        pulseCount[i] += module.pulseCount[i];
-
-answer = pulseCount[0] * pulseCount[1];
 
 Console.WriteLine(answer);
 
@@ -62,11 +66,9 @@ class Module
     public bool onOff;
     public Dictionary<string, int> memory;
 
-    public int[] pulseCount;
-
     public Module(string input)
     {
-        switch(input[0])
+        switch (input[0])
         {
             case '%': type = ModuleType.FlipFlop; break;
             case '&': type = ModuleType.Conjuction; break;
@@ -83,7 +85,6 @@ class Module
             destinations.Add(x.Trim());
 
         inputs = new List<string>();
-        pulseCount = new int[2];
     }
 
     public void RegisterInput(Module module)
@@ -137,16 +138,7 @@ class Module
     private void SendPulse(Queue<Pulse> queue, Dictionary<string, Module> modules, int pulse)
     {
         foreach (var dest in destinations)
-        {
-            //var pulseName = "-low";
-            //if (pulse == 1)
-            //    pulseName = "-high";
-            //Console.WriteLine(name + " " + pulseName + "-> " + dest);
-
-            pulseCount[pulse]++;
-
             queue.Enqueue(new Pulse(this.name, dest, pulse));
-        }
     }
 }
 
