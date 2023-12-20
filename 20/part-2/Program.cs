@@ -1,4 +1,4 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
+﻿ string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
 
 var pulseQueue = new Queue<Pulse>();
 var modules = new Dictionary<string, Module>();
@@ -13,7 +13,7 @@ foreach (var line in lines)
     modules.Add(module.name, module);
 }
 
-// register inputs for all conjuction modules
+// register inputs for all modules
 foreach (var module in modules.Values)
     foreach (var otherModule in modules.Values)
         foreach (var dest in otherModule.destinations)
