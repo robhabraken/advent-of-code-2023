@@ -1,4 +1,4 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.example1");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.example2");
 
 var pulseQueue = new Queue<Pulse>();
 var modules = new Dictionary<string, Module>();
@@ -9,6 +9,18 @@ foreach (var line in lines)
     var module = new Module(line);
     modules.Add(module.name, module);
 }
+
+foreach (var module in modules.Values)
+    if (module.type == ModuleType.Conjuction)
+        foreach (var otherModule in modules.Values)
+            foreach (var dest in otherModule.destinations)
+                if (dest.Equals(module.name))
+                    module.RegisterInput(otherModule);
+
+
+foreach (var module in modules.Values)
+    if (module.type == ModuleType.Conjuction)
+        module.CreateMemoryStore();
 
 modules["broadcaster"].ProcessPulse(pulseQueue, modules, new Pulse("button", "broadcaster", 0));
 
@@ -27,8 +39,10 @@ class Module
     public ModuleType type;
     public List<string> destinations;
 
+    public List<string> inputs;
+
     public bool onOff;
-    public int memory;
+    public Dictionary<string, int> memory;
 
     public Module(string input)
     {
@@ -47,6 +61,20 @@ class Module
         destinations = new List<string>();
         foreach (var x in input.Substring(input.IndexOf('>') + 1).Split(','))
             destinations.Add(x.Trim());
+
+        inputs = new List<string>();
+    }
+
+    public void RegisterInput(Module module)
+    {
+        inputs.Add(module.name);
+    }
+
+    public void CreateMemoryStore()
+    {
+        memory = new Dictionary<string, int>();
+        foreach (var input in inputs)
+            memory.Add(input, 0);
     }
 
     public void ProcessPulse(Queue<Pulse> queue, Dictionary<string, Module> modules, Pulse pulse)
@@ -70,11 +98,15 @@ class Module
         }
         else if (type == ModuleType.Conjuction)
         {
-            // but now first wait until all inputs are received I guess...........?
-            memory = pulse.value;
+            memory[pulse.from] = pulse.value;
+
+            var allHigh = true;
+            foreach (var mem in memory.Values)
+                if (mem == 0)
+                    allHigh = false;
 
             var output = 0;
-            if (memory == 0)
+            if (!allHigh)
                 output = 1;
 
             SendPulse(queue, modules, output);
