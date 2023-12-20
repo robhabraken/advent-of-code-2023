@@ -25,7 +25,7 @@ foreach (var module in modules.Values)
     if (module.type == ModuleType.Conjuction)
         module.CreateMemoryStore();
 
-/// part 2: find the last node (module) that leeds to the final machine
+// part 2: find the last node (module) that leads to the final machine
 var lastModule = new Module();
 foreach (var module in modules.Values)
     foreach (var dest in module.destinations)
