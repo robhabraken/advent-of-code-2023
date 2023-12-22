@@ -27,3 +27,4 @@ I'm convinced there are other ways to calculate the outcome and you might not *n
 
 ## Part 2
 
+Fortunately, part 2 was not so bad at all today. Basically I just needed to restructure my code, because shifting blocks down was already part of my part 1 solution. So I placed that part into a separate function `ShiftDownBricks()` and also removed the part where I searched for removable bricks, as we didn't need this anymore. Then I added a new constructor to my `Brick` class so I could make a deep copy. And lastly, I added a `TryRemoveBrick()` function. That actually only makes a deep copy of both the brick list and the grid array, removing the given brick while it goes, and then call `ShiftDownBricks()` for that configuration. Now my main program loop is basically calling the method to test removing a brick for each brick in the original list and I have my answer. This approach is super quick too, as it finishes in 396 ms.
