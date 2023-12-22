@@ -12,7 +12,7 @@ My solutions to the Advent of Code puzzles for the 2023 edition, written in C#.
 - [Day 9: Mirage Maintenance](https://github.com/robhabraken/advent-of-code-2023/tree/main/09)
 - [Day 10: Pipe Maze](https://github.com/robhabraken/advent-of-code-2023/tree/main/10)
 - [Day 11: Cosmic Expansion](https://github.com/robhabraken/advent-of-code-2023/tree/main/11)
-- [Day 12: Hot Springs](https://github.com/robhabraken/advent-of-code-2023/tree/main/12)
+- [Day 12: Hot Springs](https://github.com/robhabraken/advent-of-code-2023/tree/main/12) *(logic of part b not mine)*
 - [Day 13: Point of Incidence](https://github.com/robhabraken/advent-of-code-2023/tree/main/13)
 - [Day 14: Parabolic Reflector Dish](https://github.com/robhabraken/advent-of-code-2023/tree/main/14)
 - [Day 15: Lens Library](https://github.com/robhabraken/advent-of-code-2023/tree/main/15)
@@ -22,3 +22,4 @@ My solutions to the Advent of Code puzzles for the 2023 edition, written in C#.
 - [Day 19: Aplenty](https://github.com/robhabraken/advent-of-code-2023/tree/main/19)
 - [Day 20: Pulse Propagation](https://github.com/robhabraken/advent-of-code-2023/tree/main/20)
 - _Day 21 in progress..._
+- [Day 22: Sand Slabs](https://github.com/robhabraken/advent-of-code-2023/tree/main/22)
