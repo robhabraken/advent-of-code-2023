@@ -1,4 +1,4 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.example");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
 
 var gridSize = new Coord();
 var bricks = new List<Brick>();
