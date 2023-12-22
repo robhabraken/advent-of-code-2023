@@ -1,4 +1,4 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.example");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
 
 var gridSize = new Coord();
 var bricks = new List<Brick>();
@@ -21,7 +21,7 @@ foreach (string line in lines)
 bricks.Sort();
 
 // create grid and place bricks in grid
-grid = new Brick[++gridSize.x, ++gridSize.y, ++gridSize.z];
+grid = new Brick[++gridSize.x, ++gridSize.y, ++gridSize.z + 1];
 foreach (var brick in bricks)
     for (var x = brick.coords[0].x; x <= brick.coords[1].x; x++)
         for (var y = brick.coords[0].y; y <= brick.coords[1].y; y++)
@@ -67,6 +67,40 @@ foreach (var brick in bricks)
             }
         }
     } while (shiftedDown);
+}
+
+// find bricks that can be removed safely
+foreach (var brick in bricks)
+{
+    // find bricks that rest on this brick
+    var bricksOnTop = new List<Brick>();
+    for (var x = brick.coords[0].x; x <= brick.coords[1].x; x++)
+        for (var y = brick.coords[0].y; y <= brick.coords[1].y; y++)
+            if (grid[x, y, brick.coords[0].z + 1] != null)
+                if (!bricksOnTop.Contains(brick))
+                    bricksOnTop.Add(brick);
+
+    // check if all bricks found that rest on this brick also rest on another brick
+    var bricksRestingOnlyOnThisBrick = false;
+    foreach (var restingBrick in bricksOnTop)
+    {
+        var restsOnOthersAsWell = false;
+        for (var x = brick.coords[0].x; x <= brick.coords[1].x && !restsOnOthersAsWell; x++)
+            for (var y = brick.coords[0].y; y <= brick.coords[1].y && !restsOnOthersAsWell; y++)
+                if (grid[x, y, brick.coords[0].z - 1] != brick)
+                    restsOnOthersAsWell = true;
+
+        // this other brick doesn't rest on any other brick, so we can't remove it
+        if (!restsOnOthersAsWell)
+        {
+            bricksRestingOnlyOnThisBrick = true;
+            break;
+        }
+    }
+
+    // if this other brick is not resting on this brick solely, we can safely remove it
+    if (!bricksRestingOnlyOnThisBrick)
+        answer++;
 }
 
 Console.WriteLine(answer);
