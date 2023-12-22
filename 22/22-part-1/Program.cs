@@ -1,4 +1,4 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.example");
 
 var gridSize = new Coord();
 var bricks = new List<Brick>();
@@ -62,8 +62,6 @@ foreach (var brick in bricks)
                 for (var i = 0; i < 2; i++)
                     brick.coords[i].z--;
                 shiftedDown = true;
-
-                Console.WriteLine($"Shifted {brick.coords[0].x},{brick.coords[0].y},{brick.coords[0].z}-{brick.coords[1].x},{brick.coords[1].y},{brick.coords[1].z}");
             }
         }
     } while (shiftedDown);
@@ -76,18 +74,21 @@ foreach (var brick in bricks)
     var bricksOnTop = new List<Brick>();
     for (var x = brick.coords[0].x; x <= brick.coords[1].x; x++)
         for (var y = brick.coords[0].y; y <= brick.coords[1].y; y++)
-            if (grid[x, y, brick.coords[0].z + 1] != null)
-                if (!bricksOnTop.Contains(brick))
-                    bricksOnTop.Add(brick);
+            if (grid[x, y, brick.coords[1].z + 1] != null)
+            {
+                var otherBrick = grid[x, y, brick.coords[1].z + 1];
+                if (otherBrick != null && !bricksOnTop.Contains(otherBrick))
+                        bricksOnTop.Add(otherBrick);
+            }
 
     // check if all bricks found that rest on this brick also rest on another brick
     var bricksRestingOnlyOnThisBrick = false;
     foreach (var restingBrick in bricksOnTop)
     {
         var restsOnOthersAsWell = false;
-        for (var x = brick.coords[0].x; x <= brick.coords[1].x && !restsOnOthersAsWell; x++)
-            for (var y = brick.coords[0].y; y <= brick.coords[1].y && !restsOnOthersAsWell; y++)
-                if (grid[x, y, brick.coords[0].z - 1] != brick)
+        for (var x = restingBrick.coords[0].x; x <= restingBrick.coords[1].x && !restsOnOthersAsWell; x++)
+            for (var y = restingBrick.coords[0].y; y <= restingBrick.coords[1].y && !restsOnOthersAsWell; y++)
+                if (grid[x, y, restingBrick.coords[0].z - 1] != null && grid[x, y, restingBrick.coords[0].z - 1] != brick)
                     restsOnOthersAsWell = true;
 
         // this other brick doesn't rest on any other brick, so we can't remove it
