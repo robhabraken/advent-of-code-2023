@@ -1,6 +1,6 @@
 ﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
 
-long answer = 0;
+var answer = 0;
 
 // read input
 var tiles = new List<Tile>();
@@ -21,32 +21,33 @@ for (var x = 0; x < map.GetLength(0); x++)
 {
     for (var y = 0; y < map.GetLength(1); y++)
     {
-        map[x, y].connections = new List<Tile>();
-
         if (map[x, y].type == TileType.Path)
         {
             if (y > 0 && map[x, y - 1].type != TileType.Forest)
-                map[x, y].connections.Add(map[x, y - 1]);
+                map[x, y].connections.Add(new Connection(map[x, y - 1], 1));
             if (x < map.GetLength(0) - 1 && map[x + 1, y].type != TileType.Forest)
-                map[x, y].connections.Add(map[x + 1, y]);
+                map[x, y].connections.Add(new Connection(map[x + 1, y], 1));
             if (y < map.GetLength(1) - 1 && map[x, y + 1].type != TileType.Forest)
-                map[x, y].connections.Add( map[x, y + 1]);
+                map[x, y].connections.Add(new Connection(map[x, y + 1], 1));
             if (x > 0 && map[x - 1, y].type != TileType.Forest)
-                map[x, y].connections.Add(map[x - 1, y]);
+                map[x, y].connections.Add(new Connection(map[x - 1, y], 1));
         }
         else if (map[x, y].type != TileType.Forest)
         {
             if (map[x, y].type == TileType.SlopeUp)
-                map[x, y].connections.Add(map[x, y - 1]);
+                map[x, y].connections.Add(new Connection(map[x, y - 1], 1));
             else if (map[x, y].type == TileType.SlopeRight)
-                map[x, y].connections.Add(map[x + 1, y]);
+                map[x, y].connections.Add(new Connection(map[x + 1, y], 1));
             else if (map[x, y].type == TileType.SlopeDown)
-                map[x, y].connections.Add(map[x, y + 1]);
+                map[x, y].connections.Add(new Connection(map[x, y + 1], 1));
             else if (map[x, y].type == TileType.SlopeLeft)
-                map[x, y].connections.Add(map[x - 1, y]);
+                map[x, y].connections.Add(new Connection(map[x - 1, y], 1));
         }
     }
 }
+
+// there's a lot of long corridors, let's collapse their connections to bring down the number of nodes by a lot
+CollapseCorridors();
 
 var possibleHikes = new List<List<Tile>>();
 
@@ -55,15 +56,54 @@ var startPath = new List<Tile>();
 possibleHikes.Add(startPath);
 TracePath(startTile, startPath);
 
-var longestHike = new List<Tile>();
 foreach (var hike in possibleHikes)
-    if (hike.Count > longestHike.Count)
-        longestHike = hike;
+{
+    var steps = 0;
+    for (var i = 0; i < hike.Count - 1; i++)
+        foreach (var connection in hike[i].connections)
+            if (connection.tile == hike[i + 1])
+                steps += connection.length;
 
-longestHike.Remove(startTile);
-answer = longestHike.Count;
+    if (steps > answer && hike.Contains(tiles[^2]))
+        answer = steps;
+}
 
 Console.WriteLine(answer);
+
+void CollapseCorridors()
+{
+    bool didCollapse;
+    do
+    {
+        didCollapse = false;
+        foreach (var tile in tiles)
+        {
+            if (tile.type != TileType.Forest && tile.connections.Count == 2)
+            {
+                foreach (var leftConnection in tile.connections[0].tile.connections)
+                {
+                    if (leftConnection.tile == tile)
+                    {
+                        leftConnection.tile = tile.connections[1].tile;
+                        leftConnection.length += tile.connections[1].length;
+                    }
+                }
+
+                foreach (var rightConnection in tile.connections[1].tile.connections)
+                {
+                    if (rightConnection.tile == tile)
+                    {
+                        rightConnection.tile = tile.connections[0].tile;
+                        rightConnection.length += tile.connections[0].length;
+                    }
+                }
+
+                tile.connections = new List<Connection>();
+                didCollapse = true;
+            }
+        }
+    } while (didCollapse);
+}
 
 void TracePath(Tile tile, List<Tile> path)
 {
@@ -72,8 +112,8 @@ void TracePath(Tile tile, List<Tile> path)
     {
         var newPath = new List<Tile>(path);
         possibleHikes.Add(newPath);
-        if (!newPath.Contains(tile.connections[i]))
-            TracePath(tile.connections[i], newPath);
+        if (!newPath.Contains(tile.connections[i].tile))
+            TracePath(tile.connections[i].tile, newPath);
     }
 }
 
@@ -84,7 +124,7 @@ public class Tile
     public char symbol;
     public TileType type;
 
-    public List<Tile> connections;
+    public List<Connection> connections;
 
     public Tile(int x, int y, char symbol)
     {
@@ -104,6 +144,9 @@ public class Tile
             type = TileType.SlopeLeft;
         else if (symbol.Equals('#'))
             type = TileType.Forest;
+
+        if (type != TileType.Forest)
+            connections = new List<Connection>();
     }
 }
 
@@ -115,4 +158,16 @@ public enum TileType
     SlopeDown,
     SlopeLeft,
     Forest
+}
+
+public class Connection
+{
+    public Tile tile;
+    public int length;
+
+    public Connection(Tile tile, int length)
+    {
+        this.tile = tile;
+        this.length = length;
+    }
 }
