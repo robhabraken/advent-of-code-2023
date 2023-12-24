@@ -48,20 +48,19 @@ for (var x = 0; x < map.GetLength(0); x++)
     }
 }
 
-var startNode = tiles[1];
-var endNode = tiles[^2];
-
 var possibleHikes = new List<List<Tile>>();
-var path = new List<Tile>();
-possibleHikes.Add(path);
-TracePath(startNode, path);
+
+var startTile = tiles[1];
+var startPath = new List<Tile>();
+possibleHikes.Add(startPath);
+TracePath(startTile, startPath);
 
 var longestHike = new List<Tile>();
 foreach (var hike in possibleHikes)
     if (hike.Count > longestHike.Count)
         longestHike = hike;
 
-longestHike.Remove(startNode);
+longestHike.Remove(startTile);
 answer = longestHike.Count;
 
 Console.WriteLine(answer);
@@ -69,15 +68,12 @@ Console.WriteLine(answer);
 void TracePath(Tile tile, List<Tile> path)
 {
     path.Add(tile);
-    if (tile != endNode && tile.type != TileType.Forest)
+    for (var i = 0; i < tile.connections.Count; i++)
     {
-        for (var i = 0; i < tile.connections.Count; i++)
-        {
-            var newPath = new List<Tile>(path);
-            possibleHikes.Add(newPath);
-            if (!newPath.Contains(tile.connections[i]))
-                TracePath(tile.connections[i], newPath);
-        }
+        var newPath = new List<Tile>(path);
+        possibleHikes.Add(newPath);
+        if (!newPath.Contains(tile.connections[i]))
+            TracePath(tile.connections[i], newPath);
     }
 }
 
