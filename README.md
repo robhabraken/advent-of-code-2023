@@ -23,3 +23,5 @@ My solutions to the Advent of Code puzzles for the 2023 edition, written in C#.
 - [Day 20: Pulse Propagation](https://github.com/robhabraken/advent-of-code-2023/tree/main/20)
 - _Day 21 in progress..._
 - [Day 22: Sand Slabs](https://github.com/robhabraken/advent-of-code-2023/tree/main/22)
+- [Day 23: A Long Walk](https://github.com/robhabraken/advent-of-code-2023/tree/main/23)
+- _Day 24 not started yet..._
