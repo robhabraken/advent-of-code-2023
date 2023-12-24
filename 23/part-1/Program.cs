@@ -1,4 +1,6 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
+﻿using System.Diagnostics;
+
+string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
 
 var answer = 0;
 
@@ -58,14 +60,17 @@ TracePath(startTile, startPath);
 
 foreach (var hike in possibleHikes)
 {
-    var steps = 0;
-    for (var i = 0; i < hike.Count - 1; i++)
-        foreach (var connection in hike[i].connections)
-            if (connection.tile == hike[i + 1])
-                steps += connection.length;
+    if (hike.Contains(tiles[^2]))
+    {
+        var steps = 0;
+        for (var i = 0; i < hike.Count - 1; i++)
+            foreach (var connection in hike[i].connections)
+                if (connection.tile == hike[i + 1])
+                    steps += connection.length;
 
-    if (steps > answer && hike.Contains(tiles[^2]))
-        answer = steps;
+        if (steps > answer)
+            answer = steps;
+    }
 }
 
 Console.WriteLine(answer);
