@@ -63,10 +63,10 @@ Console.WriteLine(answer);
 
 void CollapseCorridors()
 {
-    bool didCollapse;
+    bool ready;
     do
     {
-        didCollapse = false;
+        ready = true;
         foreach (var tile in tiles)
         {
             if (tile.isPath && tile.connections.Count == 2)
@@ -90,11 +90,10 @@ void CollapseCorridors()
                 }
 
                 tile.connections = new List<Connection>();
-                didCollapse = true;
+                ready = false;
             }
         }
-    } while (didCollapse);
-    
+    } while (!ready);
 }
 
 void TracePath(Tile tile, List<Tile> path)
