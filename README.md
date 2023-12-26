@@ -24,4 +24,5 @@ My solutions to the Advent of Code puzzles for the 2023 edition, written in C#.
 - _Day 21 in progress..._
 - [Day 22: Sand Slabs](https://github.com/robhabraken/advent-of-code-2023/tree/main/22)
 - [Day 23: A Long Walk](https://github.com/robhabraken/advent-of-code-2023/tree/main/23)
-- _Day 24 not started yet..._
+- [Day 24: Never Tell Me The Odds](https://github.com/robhabraken/advent-of-code-2023/tree/main/24) *(own logic and code, part 2 inspired on idea from AoC subreddit)*
+- _Day 25 not started yet..._
