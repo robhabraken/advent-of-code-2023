@@ -5,7 +5,7 @@ My solutions to the Advent of Code puzzles for the 2023 edition, written in C#.
 - [Day 2: Cube Conundrum](https://github.com/robhabraken/advent-of-code-2023/tree/main/02)
 - [Day 3: Gear Ratios](https://github.com/robhabraken/advent-of-code-2023/tree/main/03)
 - [Day 4: Scratchcards](https://github.com/robhabraken/advent-of-code-2023/tree/main/04)
-- [Day 5: If You Give A Seed A - Fertilizer](https://github.com/robhabraken/advent-of-code-2023/tree/main/05)
+- [Day 5: If You Give A Seed A Fertilizer](https://github.com/robhabraken/advent-of-code-2023/tree/main/05) *(brute-forced part 2, working on a more elegant solution...)*
 - [Day 6: Wait For It](https://github.com/robhabraken/advent-of-code-2023/tree/main/06)
 - [Day 7: Camel Cards](https://github.com/robhabraken/advent-of-code-2023/tree/main/07)
 - [Day 8: Haunted Wasteland](https://github.com/robhabraken/advent-of-code-2023/tree/main/08)
