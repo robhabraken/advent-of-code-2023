@@ -1,4 +1,4 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\13\\input.txt");
 
 long answer = 0;
 var pattern = new List<string>();

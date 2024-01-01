@@ -1,4 +1,4 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\12\\input.txt");
 
 /*
  * Disclaimer: though this code is all mine, the idea behind it isn't. I wasn't able to solve this

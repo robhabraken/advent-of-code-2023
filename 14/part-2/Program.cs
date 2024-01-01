@@ -1,4 +1,4 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\14\\input.txt");
 
 // reading the map
 var rocks = new char[lines[0].Length, lines.Length];

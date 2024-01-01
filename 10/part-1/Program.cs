@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\10\\input.txt");
 
 var answer = 1;
 var sketch = new Pipe[lines[0].Length, lines.Length];

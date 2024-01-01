@@ -1,4 +1,4 @@
-﻿string[] rows = File.ReadAllLines("..\\..\\..\\..\\input.txt");
+﻿string[] rows = File.ReadAllLines("..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\16\\input.txt");
 string[] cols = new string[rows[0].Length];
 
 var answer = 0;

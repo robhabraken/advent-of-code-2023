@@ -1,4 +1,4 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\19\\input.txt");
 
 var startWorkflow = new Workflow();
 var workflows = new Dictionary<string, Workflow>();

@@ -1,4 +1,4 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\03\\input.txt");
 
 var answer = 0;
 var numberMatrix = new int[lines.Length, lines[0].Length];

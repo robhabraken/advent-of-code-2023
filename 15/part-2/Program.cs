@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
+string[] lines = File.ReadAllLines("..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\15\\input.txt");
 
 long answer = 0;
 var steps = lines[0].Split(',');
