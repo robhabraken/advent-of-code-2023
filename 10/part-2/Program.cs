@@ -277,7 +277,7 @@ for (var y = 0; y < sketch.GetLength(1); y++)
     }
 }
 
- Console.WriteLine(answer);
+Console.WriteLine(answer);
 
 class Position
 {
