@@ -38,7 +38,7 @@ foreach (var component in components.Values)
             if (secondaryConnection != component)
             {
                 var rating = FindShortestRouteToSelf(secondaryConnection, component, connection);
-                if (rating <  connectionRating)
+                if (rating < connectionRating)
                     connectionRating = rating;
             }
         }
