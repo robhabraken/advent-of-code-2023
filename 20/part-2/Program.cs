@@ -1,4 +1,4 @@
-﻿ string[] lines = File.ReadAllLines("..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\20\\input.txt");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\20\\input.txt");
 
 var pulseQueue = new Queue<Pulse>();
 var modules = new Dictionary<string, Module>();
