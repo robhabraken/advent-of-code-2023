@@ -50,21 +50,23 @@ priorityQueue.Add(startNode);
 var directionLog = new Dictionary<CityBlock, Direction>();
 var consecutiveCounts = new Dictionary<CityBlock, int>();
 
-var startToEndCost = int.MaxValue;
 do
 {
     priorityQueue = priorityQueue.OrderBy(x => x.cost.Value).ThenBy(x => x.heatLoss).ThenBy(x => x.straightLineDistanceToEnd).ToList();
     var block = priorityQueue.First();
     priorityQueue.Remove(block);
 
+    if (block.x == 11 && block.y == 7 && block.heatLoss == 5)
+        ;
+
     foreach (var connection in block.connections.OrderBy(x => x.block.heatLoss))
     {
         if (connection.block.visited)
             continue;
 
-        if (connection.block.cost == null ||
-            block.cost + connection.block.heatLoss < connection.block.cost && block.cost + connection.block.heatLoss < startToEndCost)
+        if (connection.block.cost == null || block.cost + connection.block.heatLoss < connection.block.cost)
         {
+            // skip if we're going in the same direction for three consecutive steps
             if (consecutiveCounts.ContainsKey(block) && consecutiveCounts[block] > 3)
                 continue;
 
@@ -80,6 +82,7 @@ do
             else
                 directionLog.Add(connection.block, connection.direction);
 
+            // and count the consecutive steps in the same direction for each block
             if (directionLog.ContainsKey(block) && directionLog[block] != connection.direction)
                 consecutiveCounts[connection.block] = 1;
             else if (!consecutiveCounts.ContainsKey(block))
@@ -91,7 +94,7 @@ do
     block.visited = true;
 
     if (block == endNode)
-        startToEndCost = block.cost.Value;
+        break;
 
 } while (priorityQueue.Any());
 
@@ -162,21 +165,6 @@ for (var y = 0; y < map.GetLength(1); y++)
         else
             Console.ForegroundColor = ConsoleColor.Gray;
         Console.Write(map[x, y].cost + "\t");
-    }
-    Console.WriteLine();
-}
-Console.WriteLine();
-
-// templ display distance matrix
-for (var y = 0; y < map.GetLength(1); y++)
-{
-    for (var x = 0; x < map.GetLength(0); x++)
-    {
-        if (shortestPath.Contains(map[x, y]))
-            Console.ForegroundColor = ConsoleColor.Green;
-        else
-            Console.ForegroundColor = ConsoleColor.Gray;
-        Console.Write((int)map[x, y].straightLineDistanceToEnd + "\t");
     }
     Console.WriteLine();
 }
