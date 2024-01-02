@@ -2,7 +2,7 @@
 My solutions to the Advent of Code puzzles for the 2023 edition, written in C#.
 
 | AoC Puzzle | Part one | Part two | P1 metrics | P2 metrics |
-| :-- | --: | --: | --: | --: |
+| :-- | --: | --: | -- | -- |
 | [Day 1: Trebuchet?!](https://github.com/robhabraken/advent-of-code-2023/tree/main/01) | 1.1 <img src="https://www.robhabraken.nl/img/green.png" title="Solved completely by myself without any help or external input"> | 1.2 <img src="https://www.robhabraken.nl/img/green.png" title="Solved completely by myself without any help or external input"> | 19 LoC / 14 ms  | 47 LoC / 17 ms  |
 | [Day 2: Cube Conundrum](https://github.com/robhabraken/advent-of-code-2023/tree/main/02) | 2.1 <img src="https://www.robhabraken.nl/img/green.png" title="Solved completely by myself without any help or external input"> | 2.2 <img src="https://www.robhabraken.nl/img/green.png" title="Solved completely by myself without any help or external input"> | 33 LoC / 14 ms  | 36 LoC / 15 ms  |
 | [Day 3: Gear Ratios](https://github.com/robhabraken/advent-of-code-2023/tree/main/03) | 3.1 <img src="https://www.robhabraken.nl/img/green.png" title="Solved completely by myself without any help or external input"> | 3.2 <img src="https://www.robhabraken.nl/img/green.png" title="Solved completely by myself without any help or external input"> | 32 LoC / 14 ms  | 76 LoC / 15 ms  |
