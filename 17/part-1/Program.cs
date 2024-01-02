@@ -1,4 +1,4 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\17\\input.txt");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\17\\input.example");
 
 long answer = 0;
 var blocks = new List<CityBlock>();
@@ -23,38 +23,14 @@ for (var x = 0; x < map.GetLength(0); x++)
         if (y > 0)
             map[x, y].connections.Add(new Connection(map[x, y - 1], Direction.Up));
 
-        //if (y > 1)
-        //    map[x, y].connections.Add(new Connection(map[x, y - 2], Direction.Up, map[x, y - 1].heatLoss + map[x, y - 2].heatLoss));
-
-        //if (y > 2)
-        //    map[x, y].connections.Add(new Connection(map[x, y - 3], Direction.Up, map[x, y - 1].heatLoss + map[x, y - 2].heatLoss + map[x, y - 3].heatLoss));
-
         if (x < map.GetLength(0) - 1)
             map[x, y].connections.Add(new Connection(map[x + 1, y], Direction.Right));
-
-        //if (x < map.GetLength(0) - 2)
-        //    map[x, y].connections.Add(new Connection(map[x + 2, y], Direction.Right, map[x + 1, y].heatLoss + map[x + 2, y].heatLoss));
-
-        //if (x < map.GetLength(0) - 3)
-        //    map[x, y].connections.Add(new Connection(map[x + 3, y], Direction.Right, map[x + 1, y].heatLoss + map[x + 2, y].heatLoss + map[x + 3, y].heatLoss));
 
         if (y < map.GetLength(1) - 1)
             map[x, y].connections.Add(new Connection(map[x, y + 1], Direction.Down));
 
-        //if (y < map.GetLength(1) - 2)
-        //    map[x, y].connections.Add(new Connection(map[x, y + 2], Direction.Down, map[x, y + 1].heatLoss + map[x, y + 2].heatLoss));
-
-        //if (y < map.GetLength(1) - 3)
-        //    map[x, y].connections.Add(new Connection(map[x, y + 3], Direction.Down, map[x, y + 1].heatLoss + map[x, y + 2].heatLoss + map[x, y + 3].heatLoss));
-
         if (x > 0)
             map[x, y].connections.Add(new Connection(map[x - 1, y], Direction.Left));
-
-        //if (x > 1)
-        //    map[x, y].connections.Add(new Connection(map[x - 2, y], Direction.Left, map[x - 1, y].heatLoss + map[x - 2, y].heatLoss));
-
-        //if (x > 2)
-        //    map[x, y].connections.Add(new Connection(map[x - 3, y], Direction.Left, map[x - 1, y].heatLoss + map[x - 2, y].heatLoss + map[x - 3, y].heatLoss));
     }
 }
 
@@ -63,6 +39,9 @@ startNode.cost = 0;
 startNode.heatLoss = 0;
 
 var endNode = blocks[^1];
+
+foreach (var block in blocks)
+    block.SetStraightLineDistanceTo(endNode);
 
 var priorityQueue = new List<CityBlock>();
 priorityQueue.Add(startNode);
@@ -74,7 +53,7 @@ var consecutiveCounts = new Dictionary<CityBlock, int>();
 var startToEndCost = int.MaxValue;
 do
 {
-    priorityQueue = priorityQueue.OrderBy(x => x.cost.Value).ThenBy(x => x.heatLoss).ToList();
+    priorityQueue = priorityQueue.OrderBy(x => x.cost.Value).ThenBy(x => x.heatLoss).ThenBy(x => x.straightLineDistanceToEnd).ToList();
     var block = priorityQueue.First();
     priorityQueue.Remove(block);
 
@@ -112,7 +91,7 @@ do
     block.visited = true;
 
     if (block == endNode)
-        break;
+        startToEndCost = block.cost.Value;
 
 } while (priorityQueue.Any());
 
@@ -188,6 +167,21 @@ for (var y = 0; y < map.GetLength(1); y++)
 }
 Console.WriteLine();
 
+// templ display distance matrix
+for (var y = 0; y < map.GetLength(1); y++)
+{
+    for (var x = 0; x < map.GetLength(0); x++)
+    {
+        if (shortestPath.Contains(map[x, y]))
+            Console.ForegroundColor = ConsoleColor.Green;
+        else
+            Console.ForegroundColor = ConsoleColor.Gray;
+        Console.Write((int)map[x, y].straightLineDistanceToEnd + "\t");
+    }
+    Console.WriteLine();
+}
+Console.WriteLine();
+
 Console.ForegroundColor = ConsoleColor.White;
 Console.WriteLine(answer);
 
@@ -207,6 +201,7 @@ public class CityBlock
     public int x;
     public int y;
     public int heatLoss;
+    public double straightLineDistanceToEnd;
 
     public int? cost;
     public bool visited;
@@ -219,6 +214,11 @@ public class CityBlock
         this.x = x;
         this.y = y;
         this.heatLoss = heatLoss;
+    }
+
+    public void SetStraightLineDistanceTo(CityBlock end)
+    {
+        straightLineDistanceToEnd = Math.Sqrt(Math.Pow(x - end.x, 2) + Math.Pow(y - end.y, 2));
     }
 }
 
