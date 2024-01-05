@@ -1,4 +1,4 @@
-*This is a copy of the original puzzle description. If you want to learn more about my approach to solving these puzzles see [my solutions](https://github.com/robhabraken/advent-of-code-2023/blob/main/24/solutions.md).*
+*This is a copy of the original puzzle description. If you want to learn more about my approach to solving these puzzles see [my solutions](https://github.com/robhabraken/advent-of-code-2023/blob/main/solutions/24/solutions.md).*
 
 ---
 # Day 24: Never Tell Me The Odds

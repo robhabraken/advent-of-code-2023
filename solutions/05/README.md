@@ -1,4 +1,4 @@
-*This is a copy of the original puzzle description. If you want to learn more about my approach to solving these puzzles see [my solutions](https://github.com/robhabraken/advent-of-code-2023/blob/main/05/solutions.md).*
+*This is a copy of the original puzzle description. If you want to learn more about my approach to solving these puzzles see [my solutions](https://github.com/robhabraken/advent-of-code-2023/blob/main/solutions/05/solutions.md).*
 
 ---
 # Day 5: If You Give A Seed A Fertilizer

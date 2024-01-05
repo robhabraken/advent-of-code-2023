@@ -1,4 +1,4 @@
-*This is a copy of the original puzzle description. If you want to learn more about my approach to solving these puzzles see [my solutions](https://github.com/robhabraken/advent-of-code-2023/blob/main/18/solutions.md).*
+*This is a copy of the original puzzle description. If you want to learn more about my approach to solving these puzzles see [my solutions](https://github.com/robhabraken/advent-of-code-2023/blob/main/solutions/18/solutions.md).*
 
 ---
 # Day 18: Lavaduct Lagoon
