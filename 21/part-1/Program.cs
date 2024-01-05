@@ -1,7 +1,7 @@
 ﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\21\\input.txt");
 var width = lines[0].Length;
 
-var answer = 1;
+var answer = 0;
 var remainingSteps = 64;
 
 var startX = 0;
@@ -29,7 +29,7 @@ while (stepsToTake.Any())
 
 for (var y = 0; y < lines.Length; y++)
     for (var x = 0; x < lines[y].Length; x++)
-        if (map[x, y] > 0 && map[x, y] <= remainingSteps && map[x, y] % 2 == 0)
+        if (map[x, y] >= 0 && map[x, y] <= remainingSteps && map[x, y] % 2 == 0)
             answer++;
 
 Console.WriteLine(answer);
