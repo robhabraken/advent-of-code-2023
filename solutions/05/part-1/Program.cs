@@ -1,4 +1,4 @@
-﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\input.txt");
+﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\05\\input.txt");
 
 var answer = long.MaxValue;
 var mapIndex = -1;
@@ -7,14 +7,10 @@ var maps = new List<Map>[7];
 foreach (var line in lines)
 {
     if (line.StartsWith("seeds", StringComparison.InvariantCultureIgnoreCase))
-    {
-        var seedInput = line.Replace("seeds:", "", StringComparison.InvariantCultureIgnoreCase).Trim().Split(' ');
-        for (var i = 0; i < seedInput.Length; i += 2)
-            for (var j = 0; j < long.Parse(seedInput[i + 1]); j++)
-                seeds.Add(long.Parse(seedInput[i]) + j);
-    }
+        foreach(var seed in line.Replace("seeds:", "", StringComparison.InvariantCultureIgnoreCase).Trim().Split(' '))
+            seeds.Add(long.Parse(seed));
     else if (string.IsNullOrEmpty(line))
-        mapIndex++;
+            mapIndex++;
     else if (char.IsDigit(line[0]))
     {
         if (maps[mapIndex] == null)
@@ -33,7 +29,7 @@ foreach (var line in lines)
 foreach (var seed in seeds)
 {
     var input = seed;
-    for (var i = 0; i < maps.Length; i++)
+    for (var i = 0; i < maps.Length;  i++)
     {
         foreach (var map in maps[i])
         {
