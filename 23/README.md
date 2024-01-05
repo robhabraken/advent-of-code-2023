@@ -1,4 +1,4 @@
-*This is a copy of the original puzzle description. Also, the example input and my personal puzzle input are included in this folder as well as my answers to both parts of today's puzzle. If you want to learn more about my approach to solving these puzzles see [my solutions](https://github.com/robhabraken/advent-of-code-2023/blob/main/23/solutions.md).*
+*This is a copy of the original puzzle description. If you want to learn more about my approach to solving these puzzles see [my solutions](https://github.com/robhabraken/advent-of-code-2023/blob/main/23/solutions.md).*
 
 ---
 # Day 23: A Long Walk
