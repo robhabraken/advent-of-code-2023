@@ -18,4 +18,4 @@ The result will be that there are now to separate groups of components. But we'r
 
 ## Part 2
 
-_Not yet started_
+Just push the big red button, this one's for free!
