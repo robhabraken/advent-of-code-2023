@@ -1,10 +1,11 @@
 ﻿string[] lines = File.ReadAllLines("..\\..\\..\\..\\..\\..\\..\\advent-of-code-2023-io\\17\\input.txt");
+int width = lines[0].Length;
 
 int answer = int.MaxValue;
-var map = new CityBlock[lines[0].Length, lines.Length];
+var map = new CityBlock[width, lines.Length];
 for (var y = 0; y < lines.Length; y++)
 {
-    for (var x = 0; x < lines[0].Length; x++)
+    for (var x = 0; x < width; x++)
     {
         var heatLoss = int.Parse(lines[y][x].ToString());
         map[x, y] = new CityBlock(x, y, heatLoss);
@@ -12,21 +13,28 @@ for (var y = 0; y < lines.Length; y++)
 }
 
 var endNode = map[map.GetLength(0) - 1, map.GetLength(1) - 1];
-var junctionQueue = new Queue<Tuple<int, int, Direction, int>>();
+var junctionQueue = new Queue<double>();
 
-ProcessJunction(0, 0, Direction.Right, 0);
-ProcessJunction(0, 0, Direction.Down, 0);
+ProcessJunction(200000); // start at 0,0 to the right with 0 cost
+ProcessJunction(300000); // start at 0,0 downwards with 0 cost
 
 while (junctionQueue.Any())
-{
-    var junction = junctionQueue.Dequeue();
-    ProcessJunction(junction.Item1, junction.Item2, junction.Item3, junction.Item4);
-}
+    ProcessJunction(junctionQueue.Dequeue());
 
 Console.WriteLine(answer);
 
-void ProcessJunction(int x, int y, Direction direction, int cost)
+void ProcessJunction(double state)
 {
+    // extract all variables from our state 'object'
+    var cost = (int)Math.Round((state - (int)state) * 10000);
+    var position = (int)state;
+
+    var direction = position / 100000;
+    position -= (direction * 100000);
+
+    var y = position / width;
+    var x = position % width;
+
     CityBlock currentBlock = map[x, y];
 
     if (currentBlock == endNode)
@@ -37,41 +45,40 @@ void ProcessJunction(int x, int y, Direction direction, int cost)
     }
 
     // we've been here before, but via a better (lower cost) route
-    if (currentBlock.visited[(int)direction] && currentBlock.cost[(int)direction] < cost)
+    if (currentBlock.visited[direction] && currentBlock.cost[direction] < cost)
         return;
 
-    currentBlock.visited[(int)direction] = true;
-    currentBlock.cost[(int)direction] = cost;
+    currentBlock.visited[direction] = true;
+    currentBlock.cost[direction] = cost;
 
-    Direction left;
-    Direction right;
+    int left, right;
     var deltaX = 0;
     var deltaY = 0;
 
-    if (direction == Direction.Up)
+    if (direction == 0) // up
     {
-        left = Direction.Left;
-        right = Direction.Right;
+        left = 3;
+        right = 1;
         deltaX = 1;
     }
-    else if (direction == Direction.Right)
+    else if (direction == 1) // right
     {
-        left = Direction.Up;
-        right = Direction.Down;
+        left = 0;
+        right = 2;
         deltaY = 1;
     }
-    else if (direction == Direction.Down)
+    else if (direction == 2) // down
     {
-        left = Direction.Right;
-        right = Direction.Left;
+        left = 1;
+        right = 3;
         deltaX = -1;
     }
-    else
+    else // left
     {
-        left = Direction.Down;
-        right = Direction.Up;
+        left = 2;
+        right = 0;
         deltaY = -1;
-    }
+    }    
 
     var leftCost = cost;
     var rightCost = cost;
@@ -81,14 +88,14 @@ void ProcessJunction(int x, int y, Direction direction, int cost)
             y - (deltaY * steps) >= 0 && y - (deltaY * steps) < map.GetLength(1))
         {
             leftCost += map[x - (deltaX * steps), y - (deltaY * steps)].heatLoss;
-            junctionQueue.Enqueue(Tuple.Create(x - (deltaX * steps), y - (deltaY * steps), left, leftCost));
+            junctionQueue.Enqueue((y - (deltaY * steps)) * width + x - (deltaX * steps) + left * 100000 + leftCost / 10000d);
         }
 
         if (x + (deltaX * steps) >= 0 && x + (deltaX * steps) < map.GetLength(0) &&
             y + (deltaY * steps) >= 0 && y + (deltaY * steps) < map.GetLength(1))
         {
             rightCost += map[x + (deltaX * steps), y + (deltaY * steps)].heatLoss;
-            junctionQueue.Enqueue(Tuple.Create(x + (deltaX * steps), y + (deltaY * steps), right, rightCost));
+            junctionQueue.Enqueue((y + (deltaY * steps)) * width + x + (deltaX * steps) + right * 100000 + rightCost / 10000d);
         }
     }
 }
@@ -110,12 +117,4 @@ public class CityBlock
         visited = new bool[4];
         cost = new int[4];
     }
-}
-
-public enum Direction
-{
-    Up,
-    Right,
-    Down,
-    Left
 }
