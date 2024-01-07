@@ -8,7 +8,7 @@ for (var y = 0; y < lines.Length; y++)
     for (var x = 0; x < width; x++)
     {
         var heatLoss = int.Parse(lines[y][x].ToString());
-        map[x, y] = new CityBlock(x, y, heatLoss);
+        map[x, y] = new CityBlock(heatLoss);
     }
 }
 
@@ -104,17 +104,13 @@ void ProcessJunction(double state)
 
 public class CityBlock
 {
-    public int x;
-    public int y;
     public int heatLoss;
 
     public bool[] visited;
     public int[] cost;
 
-    public CityBlock(int x, int y, int heatLoss)
+    public CityBlock(int heatLoss)
     {
-        this.x = x;
-        this.y = y;
         this.heatLoss = heatLoss;
         visited = new bool[4];
         cost = new int[4];

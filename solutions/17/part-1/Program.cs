@@ -102,8 +102,6 @@ void ProcessJunction(double state)
 
 public class CityBlock
 {
-    public int x;
-    public int y;
     public int heatLoss;
 
     public bool[] visited;
@@ -111,8 +109,6 @@ public class CityBlock
 
     public CityBlock(int x, int y, int heatLoss)
     {
-        this.x = x;
-        this.y = y;
         this.heatLoss = heatLoss;
         visited = new bool[4];
         cost = new int[4];
