@@ -45,7 +45,7 @@ for (var i = 0; i < galaxies.Count; i++)
     for (var j = i; j < galaxies.Count; j++)
         answer += galaxies[i].DistanceTo(galaxies[j]);
 
- Console.WriteLine(answer);
+Console.WriteLine(answer);
 
 class Galaxy
 {
